@@ -1,5 +1,5 @@
-import { Agent, Runner } from "./app/agent.js";
-
+import { Agent } from "./app/agent.js";
+import { Runner } from "./app/runner.js";
 
 async function inti() {
     const options = {
