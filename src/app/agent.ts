@@ -38,5 +38,5 @@ export class Agent {
     get getOutputGuardRails() {
         return this._outputGuardRails;
     }
- }
+}
 
