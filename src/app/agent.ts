@@ -1,21 +1,22 @@
 export class Agent {
     private _instructions: string | null;
     private _name: string | null;
+    private _model: string;
+    private _inputGuardRails: string;
+    private _outputGuardRails: string;
 
     constructor(options: {
-        name?: string | null,
-        instructions?: string | null
+        name: string | null,
+        instructions?: string | null,
+        model?: string,
+        inputGuradRails?: string | null,
+        outputGuardRails?: string | null
     }) {
         this._name = options.name ?? '';
         this._instructions = options.instructions ?? '';
-    }
-
-    set setInstructions(instructions: string | null) {
-        this._instructions = instructions;
-    }
-
-    set setName(name: string | null) {
-        this._name = name;
+        this._model = options.model || "gpt_4o";
+        this._inputGuardRails = options.inputGuradRails ?? '';
+        this._outputGuardRails = options.outputGuardRails ?? '';
     }
 
     get getName() {
@@ -25,5 +26,17 @@ export class Agent {
     get getInstructions() {
         return this._instructions;
     }
-}
+
+    get getModel() {
+        return this._model;
+    }
+
+    get getInputGuardRails() {
+        return this._inputGuardRails;
+    }
+
+    get getOutputGuardRails() {
+        return this._outputGuardRails;
+    }
+ }
 
