@@ -1,6 +1,6 @@
 export interface IMessages {
-    role: 'user' | 'assitent' | 'developer';
-    constent: string 
+    role: 'user' | 'assistant' | 'developer';
+    content: string
 }
 export interface ITool {
     name: string;

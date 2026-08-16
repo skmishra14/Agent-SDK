@@ -7,21 +7,24 @@ export class Agent {
     private _inputGuardRails: string;
     private _outputGuardRails: string;
     private _toolsList: Array<ITool>;
+    private _apiKey: string;
 
     constructor(options: {
         name: string | null,
         instructions?: string | null,
+        apiKey: string,
         model?: string,
         inputGuradRails?: string | null,
         outputGuardRails?: string | null,
-        toolsList?: Array<ITool>
+        toolsList?: Array<ITool> | [],
     }) {
         this._name = options.name ?? '';
         this._instructions = options.instructions ?? '';
-        this._model = options.model || "gpt_4o";
+        this._model = options.model || "gpt-4o-mini";
         this._inputGuardRails = options.inputGuradRails ?? '';
         this._outputGuardRails = options.outputGuardRails ?? '';
         this._toolsList = options.toolsList ?? [];
+        this._apiKey = options.apiKey;
     }
 
     get getName() {
@@ -48,24 +51,32 @@ export class Agent {
         return this._toolsList;
     }
 
-    set setInstructions(userInstructions: string) {
+    get getApiKey() {
+        return this._apiKey;
+    }
+
+    public setInstructions(userInstructions: string) {
         this._instructions = userInstructions;
     }
 
-    set setModel(modelName: string) {
+    public setModel(modelName: string) {
         this._model = modelName;
     }
 
-    set setInputGuardRail(inputGuardRail: string) {
+    public setInputGuardRail(inputGuardRail: string) {
         this._inputGuardRails = inputGuardRail;
     } 
 
-    set setOutputGuardRail(outputGuardRail: string) {
+    public setOutputGuardRail(outputGuardRail: string) {
         this._outputGuardRails = outputGuardRail;
     }
 
-    public addTools(tool: ITool) {
-        this._toolsList.push(tool);
+    public setApiKey(apiKey: string) {
+        this._apiKey = apiKey;
+    }
+
+    public addTools(tool: Array<ITool>) {
+        this._toolsList.push(...tool);
     }
 }
 
