@@ -10,12 +10,31 @@ export class Runner {
     private _prompt: string;
     private MESSAGE_DB: Array<Object>;
     private _userInstructions: string;
+    private _toolMap: Map<string, ITool>;
 
     constructor(agent: Agent, prompt: string) {
         this._agent = agent;
         this._prompt = prompt;
         this.MESSAGE_DB = [];
-        this._userInstructions = `${HARNESS_PROMPT} \n\n ${this._agent.getInstructions}`;
+
+        this._toolMap = new Map();
+        // map each toolName -> tool
+        this._agent.getAvaiableTools.forEach(tool => {
+            this._toolMap.set(tool.name, tool);
+        });
+
+        this._userInstructions = `${HARNESS_PROMPT} \n\n 
+        System Prompt:
+        ${this._agent.getInstructions} \n\n
+        
+        Available Tools:
+        ${this._agent.getAvaiableTools.map(tool =>
+            JSON.stringify({
+                functionName: tool.name,
+                functionDescription: tool.description,
+                functionDoc: tool.docs
+            })).join('\n')}
+        `;
     }
 
     public async run() {
@@ -23,6 +42,5 @@ export class Runner {
         this.MESSAGE_DB.push({ role: 'system', message: this._userInstructions });
 
         // think... next steps
-        console.log('-- tools --', this._agent.getAvaiableTools);
     }
 }
